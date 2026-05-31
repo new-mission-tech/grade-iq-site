@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GradeIQ — Confirm Email</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap');
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0d0f12;
+            --surface: #16191e;
+            --border: #262b33;
+            --accent: #4f8ef7;
+            --green: #3ecf8e;
+            --red: #f76f6f;
+            --text: #e8ecf0;
+            --muted: #6b7684;
+        }
+
+        html,
+        body {
+            height: 100%;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .card {
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px 36px;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+            font-weight: 500;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-name {
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .status-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .status-icon.success {
+            background: rgba(62, 207, 142, 0.12);
+            color: var(--green);
+        }
+
+        .status-icon.failure {
+            background: rgba(247, 111, 111, 0.12);
+            color: var(--red);
+        }
+
+        .status-icon.loading {
+            background: rgba(79, 142, 247, 0.12);
+            color: var(--accent);
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.4px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .close-note {
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        [data-view] {
+            display: none;
+        }
+
+        [data-view].active {
+            display: block;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--accent);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="logo">
+            <div class="logo-mark">IQ</div>
+            <span class="logo-name">GradeIQ</span>
+        </div>
+
+        <!-- Loading -->
+        <div data-view="loading" class="active">
+            <div class="status-icon loading">
+                <div class="spinner"></div>
+            </div>
+            <h1>Confirming…</h1>
+            <p class="subtitle">Just a moment.</p>
+        </div>
+
+        <!-- Success -->
+        <div data-view="confirmed">
+            <div class="status-icon success">✓</div>
+            <h1>Email confirmed</h1>
+            <p class="subtitle">Your account is verified. Open the GradeIQ extension and sign in.</p>
+            <p class="close-note">You can close this tab.</p>
+        </div>
+
+        <!-- Error -->
+        <div data-view="error">
+            <div class="status-icon failure">✕</div>
+            <h1>Link expired</h1>
+            <p class="subtitle" id="error-detail">This confirmation link is invalid or has expired. Please sign up again
+                from the GradeIQ extension.</p>
+            <p class="close-note">You can close this tab.</p>
+        </div>
+    </div>
+
+    <script>
+        function show(viewName) {
+            document.querySelectorAll('[data-view]').forEach(el => el.classList.remove('active'));
+            document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+        }
+
+        function parseParams() {
+            const hash = new URLSearchParams(window.location.hash.slice(1));
+            const query = new URLSearchParams(window.location.search);
+            const merged = new URLSearchParams();
+            for (const [k, v] of hash) merged.set(k, v);
+            for (const [k, v] of query) merged.set(k, v);
+            return merged;
+        }
+
+        const params = parseParams();
+        const error = params.get('error');
+        const errorDesc = params.get('error_description');
+        const type = params.get('type');
+        const accessToken = params.get('access_token');
+
+        if (error) {
+            const detail = document.getElementById('error-detail');
+            if (errorDesc) {
+                detail.textContent = decodeURIComponent(errorDesc).replace(/\+/g, ' ')
+                    + ' Please sign up again from the GradeIQ extension.';
+            }
+            show('error');
+        } else if (type === 'signup' || type === 'email_change' || accessToken) {
+            // Supabase has already validated the token before redirecting here
+            show('confirmed');
+        } else {
+            // Landed without params — likely someone navigating directly to the URL
+            show('error');
+        }
+    </script>
+</body>
+
+</html>
