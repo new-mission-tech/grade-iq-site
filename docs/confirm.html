@@ -197,6 +197,9 @@
     </div>
 
     <script>
+
+        const SUPABASE_KEY = '%%SUPABASE_KEY%%';
+        
         function show(viewName) {
             document.querySelectorAll('[data-view]').forEach(el => el.classList.remove('active'));
             document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
