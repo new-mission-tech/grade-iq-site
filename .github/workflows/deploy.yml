@@ -26,13 +26,13 @@ jobs:
 
       - name: Inject Supabase key
         run: |
-          sed -i "s|%%SUPABASE_KEY%%|${{ secrets.SUPABASE_KEY }}|g" confirm.html
-          sed -i "s|%%SUPABASE_KEY%%|${{ secrets.SUPABASE_KEY }}|g" reset-password.html
+          sed -i "s|%%SUPABASE_KEY%%|${{ secrets.SUPABASE_KEY }}|g" docs/confirm.html
+          sed -i "s|%%SUPABASE_KEY%%|${{ secrets.SUPABASE_KEY }}|g" docs/reset-password.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: docs
 
       - name: Deploy to GitHub Pages
         id: deployment
