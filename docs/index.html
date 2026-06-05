@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GradeIQ</title>
+    <script>
+        // Route Supabase auth redirects to the correct page based on token type.
+        // Supabase appends params to the hash: #access_token=...&type=signup|recovery
+        const hash = new URLSearchParams(window.location.hash.slice(1));
+        const type = hash.get('type');
+        const error = hash.get('error');
+
+        if (error) {
+            // Pass error params through to confirm.html to show the expired link screen
+            window.location.replace('/confirm.html' + window.location.hash);
+        } else if (type === 'recovery') {
+            window.location.replace('/reset-password.html' + window.location.hash);
+        } else if (type === 'signup' || type === 'email_change' || hash.get('access_token')) {
+            window.location.replace('/confirm.html' + window.location.hash);
+        }
+        // If no auth params, just show the landing page (falls through to body below)
+    </script>
+</head>
+
+<body>
+    <!-- Landing page placeholder — replace with real content when ready -->
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0d0f12;
+            --surface: #16191e;
+            --border: #262b33;
+            --accent: #4f8ef7;
+            --text: #e8ecf0;
+            --muted: #6b7684;
+        }
+
+        html,
+        body {
+            height: 100%;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', system-ui, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .wrap {
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-mark {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin: 0 auto 16px;
+            letter-spacing: -0.5px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+    </style>
+    <div class="wrap">
+        <div class="logo-mark">IQ</div>
+        <h1>GradeIQ</h1>
+        <p>Coming soon.</p>
+    </div>
+</body>
+
+</html>
