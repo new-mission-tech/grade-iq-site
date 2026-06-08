@@ -18,6 +18,7 @@
             window.location.replace('/confirm.html' + window.location.hash);
         }
     </script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet" />
@@ -367,6 +368,16 @@
         .showcase-content { flex: 1; }
         .showcase-visual  { flex: 1; }
 
+        .showcase-img {
+            display: block;
+            width: 100%;
+            max-width: 360px;
+            height: auto;
+            margin: 0 auto;
+            border-radius: 14px;
+            box-shadow: 0 22px 64px rgba(0,0,0,0.5), 0 4px 18px rgba(0,0,0,0.3);
+        }
+
         .img-placeholder {
             width: 100%;
             aspect-ratio: 4 / 3;
@@ -635,43 +646,6 @@
             40%  { left: 130%; }
             100% { left: 130%; }
         }
-
-        /* ── SCROLL REVEAL ──────────────────────────────────────── */
-        .reveal, .reveal-left, .reveal-right {
-            opacity: 0;
-            transition: opacity 0.72s cubic-bezier(0.22,1,0.36,1),
-                        transform 0.72s cubic-bezier(0.22,1,0.36,1);
-        }
-        .reveal       { transform: translateY(38px); }
-        .reveal-left  { transform: translateX(-52px); }
-        .reveal-right { transform: translateX(52px); }
-        .reveal.in-view,
-        .reveal-left.in-view,
-        .reveal-right.in-view {
-            opacity: 1;
-            transform: none;
-        }
-        /* Stagger delays for feature and add-card grids */
-        .features-grid .feat-card:nth-child(1),
-        .add-grid .add-card:nth-child(1) { transition-delay: 0.04s; }
-        .features-grid .feat-card:nth-child(2),
-        .add-grid .add-card:nth-child(2) { transition-delay: 0.13s; }
-        .features-grid .feat-card:nth-child(3),
-        .add-grid .add-card:nth-child(3) { transition-delay: 0.22s; }
-        .features-grid .feat-card:nth-child(4),
-        .add-grid .add-card:nth-child(4) { transition-delay: 0.31s; }
-        .features-grid .feat-card:nth-child(5),
-        .add-grid .add-card:nth-child(5) { transition-delay: 0.40s; }
-        .features-grid .feat-card:nth-child(6),
-        .add-grid .add-card:nth-child(6) { transition-delay: 0.49s; }
-        /* Stagger delays for FAQ items */
-        .faq-list .faq-item:nth-child(1) { transition-delay: 0.04s; }
-        .faq-list .faq-item:nth-child(2) { transition-delay: 0.12s; }
-        .faq-list .faq-item:nth-child(3) { transition-delay: 0.20s; }
-        .faq-list .faq-item:nth-child(4) { transition-delay: 0.28s; }
-        .faq-list .faq-item:nth-child(5) { transition-delay: 0.36s; }
-        .faq-list .faq-item:nth-child(6) { transition-delay: 0.44s; }
-
         /* ── RESPONSIVE ──────────────────────────────────────────── */
         @media (max-width: 800px) {
             .nav-links { display: none; }
@@ -695,7 +669,6 @@
     <ul class="nav-links">
         <li><a href="#features">Features</a></li>
         <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#testimonials">Reviews</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li>
             <a href="https://chromewebstore.google.com/detail/gradeiq/fmacacomlblicpcfckpmgdklkpinibdo"
@@ -761,7 +734,7 @@
             <div class="stat-sep"></div>
             <div class="stat">
                 <span class="stat-num">Free</span>
-                <span class="stat-label">Always</span>
+                <span class="stat-label">To Install</span>
             </div>
         </div>
     </div>
@@ -769,13 +742,13 @@
 
 <!-- ============================================================ WHY GRADEIQ -->
 <section class="features-bg" id="features">
-    <div class="sec-header-center reveal">
+    <div class="sec-header-center" data-aos="fade-up">
         <span class="eyebrow">Why GradeIQ</span>
         <h2 class="sec-title">The data you need, where you already shop</h2>
         <p class="sec-sub">Stop switching tabs for pop lookups. GradeIQ surfaces the numbers that matter — right on the eBay listing — so you can buy and sell with confidence.</p>
     </div>
     <div class="features-grid">
-        <div class="feat-card reveal">
+        <div class="feat-card" data-aos="fade-up">
             <div class="feat-icon">
                 <!-- Bar chart — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -785,7 +758,7 @@
             <div class="feat-title">Live Population Counts</div>
             <p class="feat-desc">See how many cards have been graded at every tier by PSA, CGC, SGC, TAG, and AGS — updated daily from the source.</p>
         </div>
-        <div class="feat-card reveal">
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="100">
             <div class="feat-icon">
                 <!-- Currency dollar — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -795,7 +768,7 @@
             <div class="feat-title">Average Sale Prices</div>
             <p class="feat-desc">90-day rolling averages from real eBay sales, broken down by grade tier, so you know exactly what the market is paying right now.</p>
         </div>
-        <div class="feat-card reveal">
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="200">
             <div class="feat-icon">
                 <!-- Scale / balance — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -805,7 +778,7 @@
             <div class="feat-title">Cross-Grader Comparison</div>
             <p class="feat-desc">PSA, CGC, SGC, TAG, and AGS — side-by-side in one panel. No other eBay extension does this.</p>
         </div>
-        <div class="feat-card reveal">
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="300">
             <div class="feat-icon">
                 <!-- Bolt / lightning — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -815,7 +788,7 @@
             <div class="feat-title">Works Right on eBay</div>
             <p class="feat-desc">Data appears directly on listing pages and search results. No separate lookup tool, no copy-pasting card names, no extra tabs.</p>
         </div>
-        <div class="feat-card reveal">
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="400">
             <div class="feat-icon">
                 <!-- Rectangle stack (card deck) — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -825,7 +798,7 @@
             <div class="feat-title">Pokémon, Sports & MTG</div>
             <p class="feat-desc">33 high-value cards tracked — from Base Set Charizard and the 1952 Topps Mantle to Black Lotus Alpha.</p>
         </div>
-        <div class="feat-card reveal">
+        <div class="feat-card" data-aos="fade-up" data-aos-delay="500">
             <div class="feat-icon">
                 <!-- Shield check — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -844,7 +817,7 @@
 
         <!-- ROW 1 -->
         <div class="showcase">
-            <div class="showcase-content reveal-left">
+            <div class="showcase-content" data-aos="fade-right">
                 <span class="eyebrow">Step 1</span>
                 <h2 class="sec-title">Install and shop on eBay like normal</h2>
                 <p class="sec-sub">Install GradeIQ from the Chrome Web Store and it activates automatically on eBay listing and search pages — no setup required.</p>
@@ -859,11 +832,10 @@
                     Install GradeIQ Free →
                 </a>
             </div>
-            <div class="showcase-visual reveal-right">
-                <div class="img-placeholder">
-                    <div class="img-ph-icon">🖼️</div>
-                    <div class="img-ph-label">Screenshot coming soon<br>GradeIQ on a live eBay listing</div>
-                </div>
+            <div class="showcase-visual"  data-aos="fade-left">
+                <img class="showcase-img"
+                     src="demo-popup.gif"
+                     alt="GradeIQ extension popup showing tracked cards list" />
             </div>
         </div>
 
@@ -871,7 +843,7 @@
 
         <!-- ROW 2 -->
         <div class="showcase rev">
-            <div class="showcase-content reveal-right">
+            <div class="showcase-content" data-aos="fade-left">
                 <span class="eyebrow">Step 2</span>
                 <h2 class="sec-title">See live pop counts and prices on any matched card</h2>
                 <p class="sec-sub">GradeIQ overlays a data panel directly on the listing — showing population counts and average sale prices per grade for every major grader.</p>
@@ -881,11 +853,10 @@
                     <li><span class="chk">✓</span>All five graders shown side-by-side</li>
                 </ul>
             </div>
-            <div class="showcase-visual reveal-left">
-                <div class="img-placeholder">
-                    <div class="img-ph-icon">📈</div>
-                    <div class="img-ph-label">Screenshot coming soon<br>Grade analysis overlay panel</div>
-                </div>
+            <div class="showcase-visual"  data-aos="fade-right">
+                <img class="showcase-img"
+                     src="screenshot-ebay-listing.png"
+                     alt="eBay listing showing GradeIQ pop count badge" />
             </div>
         </div>
 
@@ -893,7 +864,7 @@
 
         <!-- ROW 3 -->
         <div class="showcase">
-            <div class="showcase-content reveal-left">
+            <div class="showcase-content" data-aos="fade-right">
                 <span class="eyebrow">Step 3</span>
                 <h2 class="sec-title">Compare graders and buy with confidence</h2>
                 <p class="sec-sub">Know if a grade is scarce and what it's actually selling for — so you never overpay or miss what the market is telling you.</p>
@@ -903,11 +874,10 @@
                     <li><span class="chk">✓</span>Search page badges to spot tracked cards fast</li>
                 </ul>
             </div>
-            <div class="showcase-visual reveal-right">
-                <div class="img-placeholder">
-                    <div class="img-ph-icon">💡</div>
-                    <div class="img-ph-label">Screenshot coming soon<br>Market value &amp; ROI breakdown</div>
-                </div>
+            <div class="showcase-visual"  data-aos="fade-left">
+                <img class="showcase-img"
+                     src="screenshot-panel.png"
+                     alt="GradeIQ data panel showing PSA, CGC, SGC, TAG and AGS pop counts and sale prices" />
             </div>
         </div>
 
@@ -916,13 +886,13 @@
 
 <!-- ============================================================ ADDITIONAL FEATURES -->
 <section class="add-bg">
-    <div class="sec-header-center reveal">
+    <div class="sec-header-center" data-aos="fade-up">
         <span class="eyebrow">More Features</span>
         <h2 class="sec-title">Built for serious collectors</h2>
         <p class="sec-sub">Every detail of GradeIQ was designed around the real needs of the card collecting community.</p>
     </div>
     <div class="add-grid">
-        <div class="add-card reveal">
+        <div class="add-card" data-aos="fade-up">
             <div class="add-icon">
                 <!-- Trophy — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -932,7 +902,7 @@
             <div class="add-title">PSA, CGC, SGC, TAG & AGS</div>
             <p class="add-desc">All five major graders tracked side-by-side — no other eBay extension covers this breadth.</p>
         </div>
-        <div class="add-card reveal">
+        <div class="add-card" data-aos="fade-up" data-aos-delay="100">
             <div class="add-icon">
                 <!-- Tag / label — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -943,7 +913,7 @@
             <div class="add-title">Search Page Badges</div>
             <p class="add-desc">Tracked cards are flagged right on eBay search results — spot what matters before you even click in.</p>
         </div>
-        <div class="add-card reveal">
+        <div class="add-card" data-aos="fade-up" data-aos-delay="200">
             <div class="add-icon">
                 <!-- Star — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -953,7 +923,7 @@
             <div class="add-title">The Cards That Matter</div>
             <p class="add-desc">Charizard Base Set, 1952 Topps Mantle, Black Lotus Alpha, and 30 more iconic cards across Pokémon, Sports, and MTG.</p>
         </div>
-        <div class="add-card reveal">
+        <div class="add-card" data-aos="fade-up" data-aos-delay="300">
             <div class="add-icon">
                 <!-- Light bulb — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -963,7 +933,7 @@
             <div class="add-title">Suggest a Card</div>
             <p class="add-desc">Don't see a card you want tracked? Submit a suggestion directly from the extension and we'll review it.</p>
         </div>
-        <div class="add-card reveal">
+        <div class="add-card" data-aos="fade-up" data-aos-delay="400">
             <div class="add-icon">
                 <!-- Arrow path / refresh — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -973,7 +943,7 @@
             <div class="add-title">Daily Data Refresh</div>
             <p class="add-desc">Pop counts and sale prices are scraped and updated every day so the numbers you see are always current.</p>
         </div>
-        <div class="add-card reveal">
+        <div class="add-card" data-aos="fade-up" data-aos-delay="500">
             <div class="add-icon">
                 <!-- User circle — Heroicons outline -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -988,7 +958,7 @@
 
 <!-- ============================================================ CTA BANNER -->
 <section>
-    <div class="cta-box reveal">
+    <div class="cta-box" data-aos="fade-up">
         <h2>Start buying smarter today</h2>
         <p>Get live population counts and sale prices for graded cards — directly on eBay as you shop. Free to install, no account needed.</p>
         <a href="https://chromewebstore.google.com/detail/gradeiq/fmacacomlblicpcfckpmgdklkpinibdo"
@@ -1052,47 +1022,47 @@
 
 <!-- ============================================================ FAQ -->
 <section id="faq">
-    <div class="sec-header-center reveal">
+    <div class="sec-header-center" data-aos="fade-up">
         <span class="eyebrow">FAQ</span>
         <h2 class="sec-title">Common questions</h2>
     </div>
     <div class="faq-list">
-        <div class="faq-item reveal">
+        <div class="faq-item" data-aos="fade-up">
             <button class="faq-q" onclick="toggleFaq(this)">
                 Is GradeIQ really free?
                 <span class="faq-chevron">▼</span>
             </button>
             <div class="faq-a">Yes — GradeIQ is completely free to install and use. Pop counts and average sale prices are available to all users with no account required.</div>
         </div>
-        <div class="faq-item reveal">
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
             <button class="faq-q" onclick="toggleFaq(this)">
                 Which grading companies does GradeIQ support?
                 <span class="faq-chevron">▼</span>
             </button>
             <div class="faq-a">GradeIQ tracks population counts and average sale prices across PSA, CGC, SGC, TAG, and AGS — all shown side-by-side on the same panel.</div>
         </div>
-        <div class="faq-item reveal">
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
             <button class="faq-q" onclick="toggleFaq(this)">
                 What types of cards does it support?
                 <span class="faq-chevron">▼</span>
             </button>
             <div class="faq-a">GradeIQ currently tracks 33 high-value cards across Pokémon (including Base Set Charizard, Lugia, and Mewtwo), Sports (Jordan, LeBron, Mantle, Wagner, and more), and Magic: The Gathering (Black Lotus, Mox Sapphire, Ancestral Recall). We add more cards based on community suggestions.</div>
         </div>
-        <div class="faq-item reveal">
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
             <button class="faq-q" onclick="toggleFaq(this)">
                 How current is the data?
                 <span class="faq-chevron">▼</span>
             </button>
             <div class="faq-a">Population counts and sale prices are scraped and updated daily. Sale prices reflect a 90-day rolling average from completed eBay listings.</div>
         </div>
-        <div class="faq-item reveal">
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
             <button class="faq-q" onclick="toggleFaq(this)">
                 Does GradeIQ work on mobile?
                 <span class="faq-chevron">▼</span>
             </button>
             <div class="faq-a">GradeIQ is currently a Chrome desktop extension. Mobile support is on our roadmap — sign up for updates to be notified when it launches.</div>
         </div>
-        <div class="faq-item reveal">
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
             <button class="faq-q" onclick="toggleFaq(this)">
                 Is my browsing data private?
                 <span class="faq-chevron">▼</span>
@@ -1121,7 +1091,6 @@
         <div class="footer-col">
             <h4>Company</h4>
             <ul>
-                <li><a href="#testimonials">Reviews</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="privacy.html">Privacy Policy</a></li>
             </ul>
@@ -1151,24 +1120,16 @@
         document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
         if (!isOpen) item.classList.add('open');
     }
+</script>
 
-    /* ── SCROLL REVEAL ─────────────────────────────────────────── */
-    (function () {
-        const SELECTOR = '.reveal, .reveal-left, .reveal-right';
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-        );
-
-        document.querySelectorAll(SELECTOR).forEach((el) => observer.observe(el));
-    })();
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 900,
+        easing: 'ease-out-back',
+        once: false,
+        offset: 100,
+    });
 </script>
 
 </body>
