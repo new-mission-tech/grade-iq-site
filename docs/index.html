@@ -19,6 +19,15 @@
         }
     </script>
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <script>
+        !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+" (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+        posthog.init('phc_waXgLmMPrqrASafd9qVgCYkhKTM6fAYhv2V4TmjTVYYT', {
+            api_host: 'https://us.i.posthog.com',
+            person_profiles: 'never',
+            capture_pageview: true,
+            capture_pageleave: true,
+        });
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet" />
@@ -646,9 +655,99 @@
             40%  { left: 130%; }
             100% { left: 130%; }
         }
+        /* ── HAMBURGER ───────────────────────────────────────────── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            width: 36px;
+            height: 36px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 300;
+        }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+            transform-origin: center;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ── MOBILE MENU ─────────────────────────────────────────── */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 66px;
+            left: 0; right: 0;
+            background: rgba(7, 9, 26, 0.97);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 8px 6% 28px;
+            z-index: 199;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-8px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .mobile-menu.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .mobile-menu ul { list-style: none; display: flex; flex-direction: column; }
+        .mobile-menu ul li { border-bottom: 1px solid var(--border); }
+        .mobile-menu ul li:last-child { border-bottom: none; padding-top: 16px; }
+        .mobile-menu ul a {
+            display: block;
+            padding: 16px 0;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .mobile-menu ul a:hover { color: var(--accent-hi); }
+        .mobile-menu .btn-chrome { width: 100%; justify-content: center; padding: 13px 20px; }
+
+        /* ── BACK TO TOP ─────────────────────────────────────────── */
+        .back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 28px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 250;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s;
+            box-shadow: 0 4px 16px rgba(44,114,183,0.35);
+        }
+        .back-to-top:hover { background: var(--accent-hi); }
+        .back-to-top.visible { opacity: 1; transform: translateY(0); }
+
         /* ── RESPONSIVE ──────────────────────────────────────────── */
         @media (max-width: 800px) {
             .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .mobile-menu { display: block; }
+            .back-to-top { display: flex; }
             .showcase, .showcase.rev { flex-direction: column; gap: 36px; }
             .hero-stats { gap: 20px; }
             .stat-sep { display: none; }
@@ -672,7 +771,8 @@
         <li><a href="#faq">FAQ</a></li>
         <li>
             <a href="https://chromewebstore.google.com/detail/gradeiq/fmacacomlblicpcfckpmgdklkpinibdo"
-               class="btn-chrome" target="_blank" rel="noopener noreferrer">
+               class="btn-chrome" target="_blank" rel="noopener noreferrer"
+               onclick="posthog.capture('extension_install_click', {location: 'nav'})">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5"/>
                     <circle cx="12" cy="12" r="4" fill="white"/>
@@ -685,7 +785,35 @@
             </a>
         </li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </nav>
+
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <ul>
+        <li><a href="#features" onclick="closeMobileMenu()">Features</a></li>
+        <li><a href="#how-it-works" onclick="closeMobileMenu()">How It Works</a></li>
+        <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
+        <li>
+            <a href="https://chromewebstore.google.com/detail/gradeiq/fmacacomlblicpcfckpmgdklkpinibdo"
+               class="btn-chrome" target="_blank" rel="noopener noreferrer"
+               onclick="posthog.capture('extension_install_click', {location: 'mobile_menu'}); closeMobileMenu()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5"/>
+                    <circle cx="12" cy="12" r="4" fill="white"/>
+                    <path d="M12 8H20.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M12 8L8 15" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M3.8 15.5L8 15" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M20.5 15.5H12L8.5 21.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Add to Chrome
+            </a>
+        </li>
+    </ul>
+</div>
 
 <!-- ============================================================ HERO -->
 <section class="hero" id="home">
@@ -708,7 +836,8 @@
         </p>
         <div class="hero-actions">
             <a href="https://chromewebstore.google.com/detail/gradeiq/fmacacomlblicpcfckpmgdklkpinibdo"
-               class="btn-primary" target="_blank" rel="noopener noreferrer">
+               class="btn-primary" target="_blank" rel="noopener noreferrer"
+               onclick="posthog.capture('extension_install_click', {location: 'hero'})">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.8"/>
                     <circle cx="12" cy="12" r="4" fill="white"/>
@@ -962,7 +1091,8 @@
         <h2>Start buying smarter today</h2>
         <p>Get live population counts and sale prices for graded cards — directly on eBay as you shop. Free to install, no account needed.</p>
         <a href="https://chromewebstore.google.com/detail/gradeiq/fmacacomlblicpcfckpmgdklkpinibdo"
-           class="btn-primary" target="_blank" rel="noopener noreferrer" style="margin:0 auto;display:inline-flex;">
+           class="btn-primary" target="_blank" rel="noopener noreferrer" style="margin:0 auto;display:inline-flex;"
+           onclick="posthog.capture('extension_install_click', {location: 'cta_banner'})">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.8"/>
                 <circle cx="12" cy="12" r="4" fill="white"/>
@@ -1085,7 +1215,7 @@
             <ul>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="https://chromewebstore.google.com/detail/gradeiq/fmacacomlblicpcfckpmgdklkpinibdo" target="_blank" rel="noopener noreferrer">Chrome Extension</a></li>
+                <li><a href="https://chromewebstore.google.com/detail/gradeiq/fmacacomlblicpcfckpmgdklkpinibdo" target="_blank" rel="noopener noreferrer" onclick="posthog.capture('extension_install_click', {location: 'footer'})">Chrome Extension</a></li>
             </ul>
         </div>
         <div class="footer-col">
@@ -1100,7 +1230,8 @@
             <ul>
                 <li>
                     <a href="https://chromewebstore.google.com/detail/gradeiq/fmacacomlblicpcfckpmgdklkpinibdo"
-                       target="_blank" rel="noopener noreferrer">Chrome Web Store →</a>
+                       target="_blank" rel="noopener noreferrer"
+                       onclick="posthog.capture('extension_install_click', {location: 'footer'})">Chrome Web Store →</a>
                 </li>
             </ul>
         </div>
@@ -1113,12 +1244,17 @@
     </div>
 </footer>
 
+<button class="back-to-top" id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <script>
     function toggleFaq(btn) {
         const item = btn.closest('.faq-item');
         const isOpen = item.classList.contains('open');
         document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-        if (!isOpen) item.classList.add('open');
+        if (!isOpen) {
+            item.classList.add('open');
+            posthog.capture('faq_opened', { question: btn.textContent.trim().replace('▼', '').trim() });
+        }
     }
 </script>
 
@@ -1130,6 +1266,49 @@
         once: false,
         offset: 100,
     });
+
+    const _observed = new Set();
+    const _sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !_observed.has(entry.target.id)) {
+                _observed.add(entry.target.id);
+                posthog.capture('section_viewed', { section: entry.target.id });
+            }
+        });
+    }, { threshold: 0.3 });
+    ['features', 'how-it-works', 'faq'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) _sectionObserver.observe(el);
+    });
+
+    // Hamburger menu
+    const _hamburger = document.getElementById('hamburger');
+    const _mobileMenu = document.getElementById('mobile-menu');
+    function closeMobileMenu() {
+        _hamburger.classList.remove('open');
+        _mobileMenu.classList.remove('open');
+        _hamburger.setAttribute('aria-expanded', 'false');
+        _mobileMenu.setAttribute('aria-hidden', 'true');
+    }
+    _hamburger.addEventListener('click', () => {
+        const isOpen = _mobileMenu.classList.contains('open');
+        if (isOpen) { closeMobileMenu(); }
+        else {
+            _hamburger.classList.add('open');
+            _mobileMenu.classList.add('open');
+            _hamburger.setAttribute('aria-expanded', 'true');
+            _mobileMenu.setAttribute('aria-hidden', 'false');
+        }
+    });
+    document.addEventListener('click', e => {
+        if (!_hamburger.contains(e.target) && !_mobileMenu.contains(e.target)) closeMobileMenu();
+    });
+
+    // Back to top
+    const _backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        _backToTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
 </script>
 
 </body>
