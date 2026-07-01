@@ -742,6 +742,53 @@
         .back-to-top:hover { background: var(--accent-hi); }
         .back-to-top.visible { opacity: 1; transform: translateY(0); }
 
+        /* ── DEMO VIDEO ──────────────────────────────────────────── */
+        .demo-section {
+            padding: 0 6% 88px;
+            text-align: center;
+        }
+        .demo-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-hi);
+            margin-bottom: 16px;
+            display: block;
+        }
+        .demo-video-wrap {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 28px 80px rgba(0,0,0,0.55), 0 0 0 1px var(--border);
+            cursor: pointer;
+            background: #000;
+        }
+        .demo-video-wrap video {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .demo-play-btn {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(7, 9, 26, 0.45);
+            transition: background 0.2s;
+        }
+        .demo-play-btn svg {
+            width: 72px;
+            height: 72px;
+            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.6));
+            transition: transform 0.2s;
+        }
+        .demo-play-btn:hover svg { transform: scale(1.1); }
+        .demo-video-wrap.playing .demo-play-btn { display: none; }
+
         /* ── RESPONSIVE ──────────────────────────────────────────── */
         @media (max-width: 800px) {
             .nav-links { display: none; }
@@ -868,6 +915,22 @@
         </div>
     </div>
 </section>
+
+<!-- ============================================================ DEMO VIDEO -->
+<div class="demo-section" data-aos="fade-up">
+    <span class="demo-label">See It In Action</span>
+    <div class="demo-video-wrap" id="demoWrap">
+        <video id="demoVideo" preload="none" playsinline>
+            <source src="Demo-1.mp4" type="video/mp4" />
+        </video>
+        <div class="demo-play-btn" id="demoPlayBtn">
+            <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="36" cy="36" r="36" fill="rgba(44,114,183,0.85)"/>
+                <polygon points="28,20 56,36 28,52" fill="white"/>
+            </svg>
+        </div>
+    </div>
+</div>
 
 <!-- ============================================================ WHY GRADEIQ -->
 <section class="features-bg" id="features">
@@ -1309,6 +1372,23 @@
     window.addEventListener('scroll', () => {
         _backToTop.classList.toggle('visible', window.scrollY > 400);
     }, { passive: true });
+
+    // Demo video tap-to-play
+    const _demoWrap = document.getElementById('demoWrap');
+    const _demoVideo = document.getElementById('demoVideo');
+    const _demoPlayBtn = document.getElementById('demoPlayBtn');
+    _demoWrap.addEventListener('click', () => {
+        if (_demoVideo.paused) {
+            _demoVideo.play();
+            _demoWrap.classList.add('playing');
+        } else {
+            _demoVideo.pause();
+            _demoWrap.classList.remove('playing');
+        }
+    });
+    _demoVideo.addEventListener('ended', () => {
+        _demoWrap.classList.remove('playing');
+    });
 </script>
 
 </body>
